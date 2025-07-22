@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Galaxy Bot Dashboard</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #1e1e2e, #2d2d42); 
+            color: white; 
+            padding: 20px; 
+            margin: 0;
+        }
+        
+        h1 { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            color: #64ffda;
+            text-shadow: 0 0 20px rgba(100, 255, 218, 0.3);
+        }
+        
+        .dashboard { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 20px; 
+            max-width: 1200px; 
+            margin: 0 auto;
+        }
+        
+        .card { 
+            background: rgba(45, 45, 66, 0.8); 
+            padding: 25px; 
+            border-radius: 15px; 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .card h3 { 
+            margin-top: 0; 
+            color: #64ffda; 
+            border-bottom: 2px solid #64ffda;
+            padding-bottom: 10px;
+        }
+        
+        .progress-container {
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #b0b0b0;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.8s ease, background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        .cpu-bar { background: linear-gradient(45deg, #ff6b6b, #ff8e53); }
+        .ram-bar { background: linear-gradient(45deg, #4ecdc4, #44a08d); }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #64ffda;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 12px;
+            color: #b0b0b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+        
+        .status-online { background: #4CAF50; }
+        .status-warning { background: #FF9800; }
+        .status-critical { background: #F44336; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        .response-time-chart {
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chart-bar {
+            position: absolute;
+            bottom: 0;
+            width: 4px;
+            background: #64ffda;
+            transition: height 0.5s ease;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>🤖 Galaxy Bot Dashboard</h1>
+    
+    <div class="dashboard">
+        <!-- System Performance Card -->
+        <div class="card">
+            <h3>🖥️ System Performance</h3>
+            
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>CPU Usage</span>
+                    <span id="cpu-percent">--%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill cpu-bar" id="cpu-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>RAM Usage</span>
+                    <span id="ram-percent">--%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill ram-bar" id="ram-bar" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bot Statistics Card -->
+        <div class="card">
+            <h3>🤖 Bot Statistics</h3>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <span class="stat-value" id="server-count">-</span>
+                    <div class="stat-label">Servers</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="queue-count">-</span>
+                    <div class="stat-label">Queues</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Translation Service Card -->
+        <div class="card">
+            <h3>🌐 Translation Service</h3>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <span class="stat-value" id="active-jobs">-</span>
+                    <div class="stat-label">Active Jobs</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value" id="response-time">-</span>
+                    <div class="stat-label">Avg Response (ms)</div>
+                </div>
+            </div>
+            
+            <div class="response-time-chart" id="response-chart">
+                <!-- Response time bars will be added here -->
+            </div>
+        </div>
+        
+        <!-- Status Card -->
+        <div class="card">
+            <h3>📊 System Status</h3>
+            <div style="margin-top: 20px;">
+                <p><span class="status-indicator status-online" id="bot-status"></span>Bot Online</p>
+                <p><span class="status-indicator" id="cpu-status"></span>CPU Status</p>
+                <p><span class="status-indicator" id="ram-status"></span>Memory Status</p>
+                <p><span class="status-indicator status-online" id="translation-status"></span>Translation Service</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let responseTimeHistory = [];
+        
+        function getStatusClass(value, type) {
+            if (type === 'cpu' || type === 'ram') {
+                if (value < 50) return 'status-online';
+                if (value < 80) return 'status-warning';
+                return 'status-critical';
+            }
+            return 'status-online';
+        }
+        
+        function updateResponseChart() {
+            const chart = document.getElementById('response-chart');
+            chart.innerHTML = '';
+            
+            responseTimeHistory.slice(-20).forEach((time, index) => {
+                const bar = document.createElement('div');
+                bar.className = 'chart-bar';
+                bar.style.left = `${index * 12}px`;
+                bar.style.height = `${Math.min(time / 10, 50)}px`;
+                chart.appendChild(bar);
+            });
+        }
+        
+        async function updateStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const data = await response.json();
+                
+                // Update CPU
+                const cpuPercent = Math.round(data.cpu_percent);
+                document.getElementById('cpu-percent').textContent = cpuPercent + '%';
+                document.getElementById('cpu-bar').style.width = cpuPercent + '%';
+                document.getElementById('cpu-status').className = 'status-indicator ' + getStatusClass(cpuPercent, 'cpu');
+                
+                // Update RAM
+                const ramPercent = Math.round(data.ram_percent);
+                document.getElementById('ram-percent').textContent = ramPercent + '%';
+                document.getElementById('ram-bar').style.width = ramPercent + '%';
+                document.getElementById('ram-status').className = 'status-indicator ' + getStatusClass(ramPercent, 'ram');
+                
+                // Update other stats
+                document.getElementById('server-count').textContent = data.server_count;
+                document.getElementById('queue-count').textContent = data.queue_count;
+                document.getElementById('active-jobs').textContent = data.active_jobs;
+                
+                // Update response time
+                const responseTime = Math.round(data.avg_response_time);
+                document.getElementById('response-time').textContent = responseTime;
+                
+                // Add to response time history
+                if (responseTime > 0) {
+                    responseTimeHistory.push(responseTime);
+                    if (responseTimeHistory.length > 50) {
+                        responseTimeHistory = responseTimeHistory.slice(-20);
+                    }
+                    updateResponseChart();
+                }
+                
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+                // Show offline status
+                document.getElementById('bot-status').className = 'status-indicator status-critical';
+            }
+        }
+        
+        // Update every 1 second for smooth animations
+        setInterval(updateStats, 1000);
+        updateStats();
+    </script>
+</body>
+</html>
