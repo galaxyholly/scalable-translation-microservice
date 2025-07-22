@@ -19,13 +19,10 @@ from botdb import status_retrieve
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
-OPENAI = os.getenv('OPENAI_API_KEY')
-openai.api_key=OPENAI
 
 def validate_environment():
     required_vars = {
         'DISCORD_TOKEN': TOKEN,
-        'OPENAI_API_KEY': OPENAI,
         'DISCORD_GUILD': GUILD
     }
     

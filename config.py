@@ -15,7 +15,6 @@ PROJECT_ROOT = find_project_root()
 STARTUP_DELAY = 25
 HEALTH_CHECK_INTERVAL = 1
 
-AVG_ELAPSED_SAMPLE_SIZE = 10
-
-MAX_CPU = 85
-MAX_RAM = 85
+MAX_CPU = int(os.getenv('MAX_CPU', 85))
+MAX_RAM = int(os.getenv('MAX_RAM', 85)) 
+AVG_ELAPSED_SAMPLE_SIZE = int(os.getenv('SAMPLE_SIZE', 10))
