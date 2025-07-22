@@ -19,6 +19,12 @@ A high-performance Discord bot that demonstrates distributed systems architectur
 - Async/await patterns for concurrent operations
 - Flask web interface for real-time system metrics
 
+## Dashboard Example
+![alt text](image.png)
+
+## Translation Example
+![alt text](image-1.png)
+
 ## Use Case
 Currently optimized for German-to-English translation via Discord reactions, but the architecture easily extends to any CPU-intensive task requiring distributed processing.
 

@@ -1,0 +1,6 @@
+## Requirements
+discord.py
+python-dotenv
+argostranslate
+psutil
+flask

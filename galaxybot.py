@@ -89,8 +89,11 @@ def start_gui(reports):
 
 
 if __name__=='__main__':
-    def start_processes(): # This is just main(). Will probably rename it later. This function will split the discord bot and news collection routine into separate parallel processes.
-
+    def start_processes(): # This is just main(). Will probably rename it later. This function will split the discord bot and flask web server into separate processes so Discord.py has more resources.
+        """ Initialize and start both Discord bot and monitoring web server processes.
+    
+            Manages the main application lifecycle with health monitoring and 
+            graceful shutdown handling. """
         # Create reports dictionary
         reports = {
             'cpu': multiprocessing.Value('d', 0),
