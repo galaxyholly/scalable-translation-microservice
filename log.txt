@@ -1,0 +1,154 @@
+[2025-07-18 18:44:05.796961] FileNotFoundError: [Errno 2] No such file or directory: 'status.txt' 
+ [<traceback object at 0x000001DA56574A00> | Issue retrieving status 
+][2025-07-18 19:05:53.923538] FileNotFoundError: [Errno 2] No such file or directory: 'status.txt' 
+ [<traceback object at 0x000002365D6E3980> | Issue retrieving status 
+][2025-07-18 19:24:28.446810] TypeError: expected str, bytes or os.PathLike object, not NoneType 
+ [<traceback object at 0x0000022D45591240> | Issue retrieving status 
+][2025-07-18 19:25:46.402521] TypeError: argument should be a str or an os.PathLike object where __fspath__ returns a str, not 'list' 
+ [<traceback object at 0x0000023D7A07F600> | Issue retrieving status 
+][2025-07-21 12:13:39.325099] ExtensionFailed: Extension 'cogs.translate' raised an error: ModuleNotFoundError: No module named 'botsqlite' 
+ [<traceback object at 0x0000013DB5B02280> | ] 
+[2025-07-21 12:14:58.639907] ExtensionFailed: Extension 'cogs.translate' raised an error: ModuleNotFoundError: No module named 'botsqlite' 
+ [<traceback object at 0x0000017E7A085E00> | ] 
+[2025-07-21 12:15:47.590007] ExtensionFailed: Extension 'cogs.translate' raised an error: ModuleNotFoundError: No module named 'botsqlite' 
+ [<traceback object at 0x0000022D92E56780> | ] 
+[2025-07-21 12:50:48.030621] ExtensionFailed: Extension 'cogs.translate' raised an error: SyntaxError: did you forget parentheses around the comprehension target? (cmdqueue.py, line 68) 
+ [<traceback object at 0x00000235ED04FEC0> | ] 
+[2025-07-21 14:07:28] AttributeError: 'QueueManager' object has no attribute 'cpu_too_high'
+Context: Task sorting failed
+
+[2025-07-21 14:07:38] AttributeError: 'QueueManager' object has no attribute 'cpu_too_high'
+Context: Task sorting failed
+
+[2025-07-21 14:24:20] RuntimeError: dictionary changed size during iteration
+Context: Monitor loop error
+
+[2025-07-21 17:02:03] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:11:49] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:11:51] KeyError: 'time'
+Context: Error processing queue 2
+
+[2025-07-21 17:12:10] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:14:15] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:14:22] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:16:07] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:17:22] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:18:08] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:19:33] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:20:14] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:21:52] KeyError: 'time'
+Context: Error processing queue 1
+
+[2025-07-21 17:27:03] KeyError: 'time_finished'
+Context: Error processing queue 1
+
+[2025-07-21 17:44:32] BrokenPipeError: [WinError 109] The pipe has been ended
+Context: Monitor loop error
+
+[2025-07-21 17:46:01] OSError: [WinError 233] No process is on the other end of the pipe
+Context: Failed to create queue on core 0
+
+[2025-07-21 17:46:16] OSError: [WinError 233] No process is on the other end of the pipe
+Context: Task sorting failed
+
+[2025-07-21 17:46:20] OSError: [WinError 233] No process is on the other end of the pipe
+Context: Task sorting failed
+
+[2025-07-21 17:46:52] OSError: [WinError 233] No process is on the other end of the pipe
+Context: Task sorting failed
+
+[2025-07-21 17:49:04] TypeError: object of type 'method' has no len()
+Context: Failed to handle completed task 1
+
+[2025-07-21 17:49:05] TypeError: object of type 'method' has no len()
+Context: Failed to handle completed task 2
+
+[2025-07-21 17:49:06] TypeError: object of type 'method' has no len()
+Context: Failed to handle completed task 3
+
+[2025-07-21 17:49:07] TypeError: object of type 'method' has no len()
+Context: Failed to handle completed task 4
+
+[2025-07-21 17:50:38] AttributeError: 'QueueManager' object has no attribute 'bot'
+Context: Failed to handle completed task 1
+
+[2025-07-21 17:52:05] TypeError: object of type 'method' has no len()
+Context: Failed to handle completed task 1
+
+[2025-07-21 17:53:56] TypeError: object of type 'method' has no len()
+Context: Failed to handle completed task 1
+
+[2025-07-21 17:54:33] TypeError: object of type 'method' has no len()
+Context: Failed to handle completed task 1
+
+[2025-07-21 17:55:29] TypeError: object of type 'method' has no len()
+Context: Failed to handle completed task 1
+
+[2025-07-21 18:08:56] KeyError: 2
+Context: Failed to handle completed task 2
+
+[2025-07-21 18:08:56] RuntimeError: dictionary changed size during iteration
+Context: Monitor loop error
+
+[2025-07-21 18:27:45] ValueError: Invalid elapsed time: -0.5555026531219482
+Context: Average calculation
+
+[2025-07-21 18:27:46] ValueError: Invalid elapsed time: -0.3436572551727295
+Context: Average calculation
+
+[2025-07-21 18:43:28] ValueError: Invalid elapsed time: -0.4938781261444092
+Context: Average calculation
+
+[2025-07-21 19:14:58] RuntimeError: Task is already launched and is not completed.
+Context: Failed to start stats collection task
+
+[2025-07-21 19:14:58] RuntimeError: Task is already launched and is not completed.
+Context: Error in Utilities cog on_ready
+
+[2025-07-21 20:13:04] ValueError: Invalid elapsed time: -0.43395113945007324
+Context: Average calculation
+
+[2025-07-21 20:13:12] ValueError: Invalid elapsed time: -0.6670258045196533
+Context: Average calculation
+
+[2025-07-21 20:43:21] ValueError: Invalid elapsed time: -0.4242064952850342
+Context: Average calculation
+
+[2025-07-22 10:08:58] RuntimeError: Task is already launched and is not completed.
+Context: Failed to start stats collection task
+
+[2025-07-22 10:08:58] RuntimeError: Task is already launched and is not completed.
+Context: Error in Utilities cog on_ready
+
+[2025-07-22 10:29:57] RuntimeError: Task is already launched and is not completed.
+Context: Failed to start stats collection task
+
+[2025-07-22 10:29:57] RuntimeError: Task is already launched and is not completed.
+Context: Error in Utilities cog on_ready
+
+[2025-07-22 10:39:19] RuntimeError: Task is already launched and is not completed.
+Context: Failed to start stats collection task
+
+[2025-07-22 10:39:19] RuntimeError: Task is already launched and is not completed.
+Context: Error in Utilities cog on_ready
+
