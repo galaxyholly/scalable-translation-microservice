@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, render_template
 import psutil
 import time
+import os
 from errorlogger import error_logger
+
 
 
 def create_app(reports):
@@ -217,7 +219,7 @@ def start_webserver(reports):
         
         # Validate port and host
         host = '0.0.0.0'
-        port = 5000
+        port = int(os.environ.get("PORT", 5000))
         
         try:
             # Check if port is available
