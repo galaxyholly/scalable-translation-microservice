@@ -1,1 +1,1 @@
-web: python galaxybot.py
+web: python app.py
