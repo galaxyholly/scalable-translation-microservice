@@ -7,6 +7,7 @@ import discord
 import multiprocessing
 import time
 import asyncio
+from pathlib import Path
 from utilmonitor import start_webserver
 from flask import Flask, jsonify, render_template
 from discord.ext import commands
@@ -45,7 +46,8 @@ def start_bot(reports):
     async def on_ready():
         print('...process_starts...')
         try:
-            for filename in os.listdir('galaxybot/cogs'):
+            cogs_dir = Path(__file__).parent / "cogs"
+            for filename in os.listdir(cogs_dir):
                 if filename.endswith('.py'):
                     await bot.load_extension(f'cogs.{filename[:-3]}')
         except FileNotFoundError as e:

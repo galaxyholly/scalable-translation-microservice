@@ -152,3 +152,21 @@ Context: Failed to start stats collection task
 [2025-07-22 10:39:19] RuntimeError: Task is already launched and is not completed.
 Context: Error in Utilities cog on_ready
 
+[2025-07-24 13:39:31] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'galaxybot/cogs'
+Context: Cogs directory not found
+
+[2025-07-24 13:40:13] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'app/cogs'
+Context: Cogs directory not found
+
+[2025-07-24 13:40:57] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'galaxybot/cogs'
+Context: Cogs directory not found
+
+[2025-07-24 13:41:55] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'galaxybot/cogs'
+Context: Cogs directory not found
+
+[2025-07-24 13:45:44] FileNotFoundError: [WinError 3] The system cannot find the path specified: '/cogs'
+Context: Cogs directory not found
+
+[2025-07-24 13:47:47] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'c:\\Users\\holly\\Repositories\\galaxybot\\galaxybot\\cogs'
+Context: Cogs directory not found
+
