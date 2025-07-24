@@ -231,7 +231,7 @@ def start_webserver(reports):
             if result == 0:
                 error_logger(RuntimeError(f"Port {port} already in use"), "Webserver startup")
                 # Try alternative port
-                port = 5001
+                
                 
         except Exception as port_check_error:
             error_logger(port_check_error, "Port availability check failed")
