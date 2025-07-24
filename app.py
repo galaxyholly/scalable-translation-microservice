@@ -15,6 +15,8 @@ from config import intents, HEALTH_CHECK_INTERVAL, STARTUP_DELAY
 from errorlogger import error_logger
 from botdb import status_retrieve
 
+print("BOOT-TIME  PORT =", os.environ.get("PORT"), file=sys.stderr, flush=True)
+
 # Loading auth information into variables.
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
