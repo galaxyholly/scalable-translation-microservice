@@ -36,8 +36,6 @@ def validate_environment():
 # Check validation first as it's the first potential non-import error.
 validate_environment()
 
-app = Flask(__name__)
-
 def start_bot(reports):
     bot = commands.Bot(command_prefix='$', intents=intents) # Self Explanatory
     bot.reports = reports

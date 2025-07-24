@@ -210,41 +210,24 @@ def create_app(reports):
 
 
 def start_webserver(reports):
-    """Start the Flask web server with error handling."""
     try:
         if not reports:
             raise ValueError("Reports parameter is required")
-            
-        app = create_app(reports)
-        
-        # Validate port and host
-        host = '0.0.0.0'
-        port = int(os.environ.get("PORT", 5000))
-        
-        try:
-            # Check if port is available
-            import socket
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            result = sock.connect_ex((host, port))
-            sock.close()
-            
-            if result == 0:
-                error_logger(RuntimeError(f"Port {port} already in use"), "Webserver startup")
-                # Try alternative port
-                
-                
-        except Exception as port_check_error:
-            error_logger(port_check_error, "Port availability check failed")
-        
-        try:
-            app.run(host=host, port=port, debug=False, threaded=True)
-        except OSError as os_error:
-            error_logger(os_error, f"Failed to bind to {host}:{port}")
-            raise
-        except Exception as run_error:
-            error_logger(run_error, "Flask app run failed")
-            raise
-            
+
+        app  = create_app(reports)
+
+        host = "0.0.0.0"
+        port = int(os.environ.get("PORT", 5000))   # <-- Railway injects this
+        print(f"[web] Starting Flask on {host}:{port}")   # DEBUG line
+
+        # ──>  DO NOT probe or change the port.
+        #      If it's busy, crash so Railway restarts the container.
+        app.run(host=host,
+                port=port,
+                debug=False,
+                use_reloader=False,   # dev reloader forks endlessly in Docker
+                threaded=True)
+
     except Exception as e:
         error_logger(e, "Failed to start web server")
-        raise 
+        raise
