@@ -107,32 +107,28 @@ if __name__=='__main__':
 
         # Pass to processes
         p1 = multiprocessing.Process(target=start_bot, args=(reports,))
-        p2 = multiprocessing.Process(target=start_gui, args=(reports,))
+
    
             
         p1.start()
-        p2.start()
-        
-        time.sleep(STARTUP_DELAY)
-        try:
-            while p1.is_alive() and p2.is_alive():
-                time.sleep(HEALTH_CHECK_INTERVAL)
-            
-            # If we get here, one process died
-            print("One process failed, shutting down...")
-        
-        except KeyboardInterrupt:
-            print("Shutting down...")
-        finally:
-            # Clean up any remaining processes
-            if p1.is_alive():
-                p1.terminate()
-            if p2.is_alive():
-                p2.terminate()
-        
-        p1.join()
-        p2.join()
 
+        
+        try:
+            # Railway injects PORT (default 8080). If not present we fall back to 5000.
+            port = int(os.environ.get("PORT", 5000))
+            print(f"[main] Flask will listen on 0.0.0.0:{port}", flush=True)
+            start_webserver(reports)                  # <- this call BLOCKS
+        except KeyboardInterrupt:
+            print("\n[main] Received shutdown signal")
+        except Exception as exc:
+            error_logger(exc, "Fatal error in Flask server")
+        finally:
+            # Clean-up bot process
+            if p1.is_alive():
+                print("[main] Terminating Discord bot …")
+                p1.terminate()
+                p1.join(10)
+            print("[main] Goodbye")
         
 
     start_processes()
