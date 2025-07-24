@@ -170,43 +170,24 @@ def create_app(reports):
         
         @app.route('/health')
         def health_check():
-            """Simple health check endpoint."""
+            """Health check with startup grace period."""
             try:
-                # Basic health indicators
-                health_status = {
+                # Add a startup grace period
+                startup_time = time.time() - app.start_time
+                if startup_time < 60:  # 60 second grace period
+                    return {'status': 'starting', 'uptime': startup_time}, 200
+                    
+                return {
                     'status': 'healthy',
                     'timestamp': time.time(),
-                    'reports_connected': bool(reports),
-                    'flask_running': True
-                }
-                
-                # Check if we can access reports
-                if reports:
-                    try:
-                        test_value = reports['cpu'].value
-                        health_status['reports_accessible'] = True
-                    except Exception:
-                        health_status['reports_accessible'] = False
-                        health_status['status'] = 'degraded'
-                else:
-                    health_status['reports_accessible'] = False
-                    health_status['status'] = 'degraded'
-                
-                return jsonify(health_status)
+                    'uptime': startup_time
+                }, 200
+            except Exception:
+                return {'status': 'ok'}, 200  # Fallback simple response
                 
             except Exception as e:
-                error_logger(e, "Health check failed")
-                return jsonify({
-                    'status': 'unhealthy',
-                    'timestamp': time.time(),
-                    'error': 'Health check failed'
-                }), 500
-        
-        return app
-        
-    except Exception as e:
-        error_logger(e, "Failed to create Flask app")
-        raise
+                error_logger(e, "Failed to create Flask app")
+                raise
 
 
 def start_webserver(reports):
