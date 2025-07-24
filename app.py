@@ -3,7 +3,6 @@ import random
 import os
 import sys
 from dotenv import load_dotenv
-import openai
 import discord
 import multiprocessing
 import time
