@@ -1,8 +1,9 @@
-# bot.py
-import random
+# app.py
+
 import os
 import sys
 from dotenv import load_dotenv
+
 import discord
 import multiprocessing
 import time
@@ -14,8 +15,6 @@ from discord.ext import commands
 from config import intents, HEALTH_CHECK_INTERVAL, STARTUP_DELAY
 from errorlogger import error_logger
 from botdb import status_retrieve
-
-print("BOOT-TIME  PORT =", os.environ.get("PORT"), file=sys.stderr, flush=True)
 
 # Loading auth information into variables.
 load_dotenv()
@@ -37,6 +36,8 @@ def validate_environment():
 
 # Check validation first as it's the first potential non-import error.
 validate_environment()
+
+app = Flask(__name__)
 
 def start_bot(reports):
     bot = commands.Bot(command_prefix='$', intents=intents) # Self Explanatory
@@ -107,29 +108,32 @@ if __name__=='__main__':
 
         # Pass to processes
         p1 = multiprocessing.Process(target=start_bot, args=(reports,))
-
+        p2 = multiprocessing.Process(target=start_gui, args=(reports,))
    
             
         p1.start()
-
+        p2.start()
         
+        time.sleep(STARTUP_DELAY)
         try:
-            # Railway injects PORT (default 8080). If not present we fall back to 5000.
-            port = int(os.environ.get("PORT", 5000))
-            print(f"[main] Flask will listen on 0.0.0.0:{port}", flush=True)
-            start_webserver(reports)                  # <- this call BLOCKS
+            while p1.is_alive() and p2.is_alive():
+                time.sleep(HEALTH_CHECK_INTERVAL)
+            
+            # If we get here, one process died
+            print("One process failed, shutting down...")
+        
         except KeyboardInterrupt:
-            print("\n[main] Received shutdown signal")
-        except Exception as exc:
-            error_logger(exc, "Fatal error in Flask server")
+            print("Shutting down...")
         finally:
-            # Clean-up bot process
+            # Clean up any remaining processes
             if p1.is_alive():
-                print("[main] Terminating Discord bot …")
                 p1.terminate()
-                p1.join(10)
-            print("[main] Goodbye")
+            if p2.is_alive():
+                p2.terminate()
+        
+        p1.join()
+        p2.join()
+
         
 
     start_processes()
-

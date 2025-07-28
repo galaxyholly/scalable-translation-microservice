@@ -170,3 +170,14 @@ Context: Cogs directory not found
 [2025-07-24 13:47:47] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'c:\\Users\\holly\\Repositories\\galaxybot\\galaxybot\\cogs'
 Context: Cogs directory not found
 
+[2025-07-27 12:09:53] ValueError: Missing required environment variables: OPENAI_API_KEY
+
+[2025-07-27 12:10:13] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'galaxybot/cogs'
+Context: Cogs directory not found
+
+[2025-07-27 12:10:44] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'galaxybot/cogs'
+Context: Cogs directory not found
+
+[2025-07-27 12:13:50] FileNotFoundError: [WinError 3] The system cannot find the path specified: 'galaxybot/cogs'
+Context: Cogs directory not found
+

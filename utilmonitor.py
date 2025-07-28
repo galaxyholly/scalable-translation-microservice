@@ -1,9 +1,7 @@
 from flask import Flask, jsonify, render_template
 import psutil
 import time
-import os
 from errorlogger import error_logger
-
 
 
 def create_app(reports):
@@ -170,45 +168,81 @@ def create_app(reports):
         
         @app.route('/health')
         def health_check():
-            """Health check with startup grace period."""
+            """Simple health check endpoint."""
             try:
-                # Add a startup grace period
-                startup_time = time.time() - app.start_time
-                if startup_time < 60:  # 60 second grace period
-                    return {'status': 'starting', 'uptime': startup_time}, 200
-                    
-                return {
+                # Basic health indicators
+                health_status = {
                     'status': 'healthy',
                     'timestamp': time.time(),
-                    'uptime': startup_time
-                }, 200
-            except Exception:
-                return {'status': 'ok'}, 200  # Fallback simple response
+                    'reports_connected': bool(reports),
+                    'flask_running': True
+                }
+                
+                # Check if we can access reports
+                if reports:
+                    try:
+                        test_value = reports['cpu'].value
+                        health_status['reports_accessible'] = True
+                    except Exception:
+                        health_status['reports_accessible'] = False
+                        health_status['status'] = 'degraded'
+                else:
+                    health_status['reports_accessible'] = False
+                    health_status['status'] = 'degraded'
+                
+                return jsonify(health_status)
                 
             except Exception as e:
-                error_logger(e, "Failed to create Flask app")
-                raise
+                error_logger(e, "Health check failed")
+                return jsonify({
+                    'status': 'unhealthy',
+                    'timestamp': time.time(),
+                    'error': 'Health check failed'
+                }), 500
+        
+        return app
+        
+    except Exception as e:
+        error_logger(e, "Failed to create Flask app")
+        raise
 
 
 def start_webserver(reports):
+    """Start the Flask web server with error handling."""
     try:
         if not reports:
             raise ValueError("Reports parameter is required")
-
-        app  = create_app(reports)
-
-        host = "0.0.0.0"
-        port = int(os.environ.get("PORT", 5000))   # <-- Railway injects this
-        print(f"[web] Starting Flask on {host}:{port}")   # DEBUG line
-
-        # ──>  DO NOT probe or change the port.
-        #      If it's busy, crash so Railway restarts the container.
-        app.run(host=host,
-                port=port,
-                debug=False,
-                use_reloader=False,   # dev reloader forks endlessly in Docker
-                threaded=True)
-
+            
+        app = create_app(reports)
+        
+        # Validate port and host
+        host = '0.0.0.0'
+        port = 5000
+        
+        try:
+            # Check if port is available
+            import socket
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = sock.connect_ex((host, port))
+            sock.close()
+            
+            if result == 0:
+                error_logger(RuntimeError(f"Port {port} already in use"), "Webserver startup")
+                # Try alternative port
+                port = 5001
+                
+        except Exception as port_check_error:
+            error_logger(port_check_error, "Port availability check failed")
+        
+        try:
+            app.run(host=host, port=port, debug=False, threaded=True)
+        except OSError as os_error:
+            error_logger(os_error, f"Failed to bind to {host}:{port}")
+            raise
+        except Exception as run_error:
+            error_logger(run_error, "Flask app run failed")
+            raise
+            
     except Exception as e:
         error_logger(e, "Failed to start web server")
-        raise
+        raise 
