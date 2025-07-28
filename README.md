@@ -2,6 +2,8 @@
 
 A high-performance Discord bot that demonstrates distributed systems architecture and real-time resource management using Python multiprocessing.
 
+https://bot.holly-portfolio.com/dashboard - Check out my live dashboard! I have a rack-mounted server at home this is running on. Hosted through a cloudflare tunnel to this URL.
+
 ### The Problem
 I set out to challenge myself by doing something I hadn't done before. I wanted to make a translation software that utilized AI, but I wanted to design it so it could run on severely resource constrained hardware. I had a loose idea in my head of making something that could integrate with LoRa technology, or mesh networks, so people in places in the world that don't have cell service could translate with cost efficiency.
 
