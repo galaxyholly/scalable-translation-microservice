@@ -4,6 +4,17 @@ A high-performance Discord bot that demonstrates distributed systems architectur
 
 https://bot.holly-portfolio.com/dashboard - Check out my live dashboard! I have a rack-mounted server at home this is running on. Hosted through a cloudflare tunnel to this URL.
 
+## Metrics
+I wrote some unit tests to check throughput by spoofing a discord "reaction" object. You can see it in the "test.py" cog. As of right now:
+# This bot has a throughput of 45 tasks with a 0% failure rate, ~10ms latency (translation time for each task).
+Starting 45 tasks...
+FINISHED! 5.70 seconds
+Successful translations: 45
+Rejected (too busy): 0
+Failed translations: 0
+Acceptance Rate: 100.0%
+Actual throughput: 7.9 translations/sec
+
 ### The Problem
 I set out to challenge myself by doing something I hadn't done before. I wanted to make a translation software that utilized AI, but I wanted to design it so it could run on severely resource constrained hardware. I had a loose idea in my head of making something that could integrate with LoRa technology, or mesh networks, so people in places in the world that don't have cell service could translate with cost efficiency.
 
