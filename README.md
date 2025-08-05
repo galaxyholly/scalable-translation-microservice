@@ -4,6 +4,9 @@ A high-performance Discord bot that demonstrates distributed systems architectur
 
 https://bot.holly-portfolio.com/dashboard - Check out my live dashboard! I have a rack-mounted server at home this is running on. Hosted through a cloudflare tunnel to this URL.
 
+## Dashboard Example
+![alt text](image.png)
+
 ## Metrics
 I wrote some unit tests to check throughput by spoofing a discord "reaction" object. You can see it in the "test.py" cog. As of right now:
 # This bot has a throughput of 45 tasks with a 0% failure rate, ~10ms latency (translation time for each task).
@@ -39,8 +42,7 @@ As of right now, this product will run efficiently on raspberry pi devices with 
 - Async/await patterns for concurrent operations
 - Flask web interface for real-time system metrics
 
-## Dashboard Example
-![alt text](image.png)
+
 
 ## Translation Example
 ![alt text](image-1.png)
