@@ -2,7 +2,7 @@
 
 A high-performance Discord bot that demonstrates distributed systems architecture and real-time resource management using Python multiprocessing.
 
-https://bot.holly-portfolio.com/dashboard - Check out my live dashboard! I have a rack-mounted server at home this is running on. Hosted through a cloudflare tunnel to this URL.
+[https://bot.holly-portfolio.com/dashboard](https://dashboard.holly-portfolio.com/dashboard) - Check out my live dashboard! I have a rack-mounted server at home this is running on. Hosted through a cloudflare tunnel to this URL.
 
 ## Dashboard Example
 ![alt text](image.png)
